@@ -4,16 +4,23 @@
   "templateType": "standard",
   "version": "2.0",
   "state": {
-    "hasGreeted": false,
-    "setupComplete": false,
-    "currentSprint": null,
-    "phase": "planning"
+    "hasGreeted": true,
+    "setupComplete": true,
+    "currentSprint": "sprint-01-beachhead-foundation",
+    "phase": "phase-0"
   },
   "metadata": {
     "tradeName": null,
-    "teamType": null,
+    "teamType": "solo",
+    "buildApproach": "complete-build",
     "multiTenant": true,
     "tenantModel": "subdomain",
+    "techStack": {
+      "backend": "Python + FastAPI",
+      "frontend": "Next.js (React)",
+      "database": "PostgreSQL + PostGIS",
+      "mobile": "TBD (React Native or Flutter)"
+    },
     "linearProjectId": "",
     "linearProjectUrl": ""
   },
