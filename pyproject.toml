@@ -1,0 +1,196 @@
+# pyproject.toml - Python project configuration
+# Used by Black, Ruff, mypy, pytest, and other Python tools
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fms"
+version = "0.1.0"
+description = "Farm Management System - Verification-grade mixed-fleet FMS"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary"}
+authors = [
+    {name = "Solo Founder", email = "founder@example.com"}
+]
+keywords = ["agriculture", "farm-management", "isoxml", "adapt", "precision-agriculture"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# Dependencies will be defined in backend/requirements.txt
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+# ============================================================================
+# Black Configuration (Code Formatting)
+# ============================================================================
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # Exclude common directories
+  \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.ruff_cache
+  | \.venv
+  | venv
+  | build
+  | dist
+  | node_modules
+  | __pycache__
+)/
+'''
+
+# ============================================================================
+# Ruff Configuration (Linting & Auto-fixing)
+# ============================================================================
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+# Exclude common directories
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "node_modules",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# Enable specific rule sets
+# E = pycodestyle errors
+# F = Pyflakes
+# I = isort (import sorting)
+# N = pep8-naming
+# UP = pyupgrade (modern Python syntax)
+# B = flake8-bugbear (common bugs)
+# C4 = flake8-comprehensions
+# SIM = flake8-simplify
+# TCH = flake8-type-checking
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "TCH"]
+
+# Ignore specific rules
+ignore = [
+    "E501",  # Line too long (handled by Black)
+    "B008",  # Do not perform function calls in argument defaults (common in FastAPI)
+]
+
+# Allow autofix for all enabled rules
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore import rules in __init__.py files
+"__init__.py" = ["F401"]
+# Ignore naming rules in test files
+"test_*.py" = ["N802"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["fms"]
+
+# ============================================================================
+# mypy Configuration (Type Checking)
+# ============================================================================
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_calls = true
+disallow_any_generics = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+strict_concatenate = true
+
+# Allow some flexibility during early development
+allow_untyped_decorators = true
+
+# Exclude directories
+exclude = [
+    "node_modules",
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+]
+
+# ============================================================================
+# pytest Configuration (Testing)
+# ============================================================================
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["backend/tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",                    # Show summary of all test results
+    "--strict-markers",       # Ensure all markers are registered
+    "--strict-config",        # Ensure config is valid
+    "--showlocals",          # Show local variables in tracebacks
+    "--cov=backend",         # Coverage for backend code
+    "--cov-report=term-missing", # Show missing lines in coverage report
+    "--cov-report=html",     # Generate HTML coverage report
+    "--cov-fail-under=80",   # Fail if coverage below 80%
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# Asyncio configuration
+asyncio_mode = "auto"
+
+# ============================================================================
+# Coverage Configuration
+# ============================================================================
+[tool.coverage.run]
+source = ["backend"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+    "*/migrations/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]

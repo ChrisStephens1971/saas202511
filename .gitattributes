@@ -1,0 +1,106 @@
+# .gitattributes - Cross-platform line ending configuration
+# Ensures consistent line endings across Windows, Mac, and Linux
+
+# Auto-detect text files and normalize line endings to LF
+* text=auto eol=lf
+
+# Source code files - always use LF
+*.py text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+
+# Web files - always use LF
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.sass text eol=lf
+*.less text eol=lf
+*.svg text eol=lf
+*.xml text eol=lf
+
+# Documentation files - always use LF
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+*.adoc text eol=lf
+
+# Configuration files - always use LF
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.prettierrc text eol=lf
+.eslintrc* text eol=lf
+Dockerfile text eol=lf
+Makefile text eol=lf
+*.sh text eol=lf
+
+# Windows-specific files - use CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary files - do not modify
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.pptx binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+
+# Lock files - treat as binary to avoid conflicts
+package-lock.json binary
+yarn.lock binary
+pnpm-lock.yaml binary
+poetry.lock binary
+Pipfile.lock binary
+
+# Database files - binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Linguist overrides (GitHub language statistics)
+# Mark vendored/generated code to exclude from language stats
+frontend/.next/** linguist-generated=true
+frontend/out/** linguist-generated=true
+node_modules/** linguist-vendored=true
+*.min.js linguist-generated=true
+*.min.css linguist-generated=true
+*.map linguist-generated=true
+
+# Mark documentation as documentation (helps GitHub understand repo purpose)
+*.md linguist-documentation=true
+docs/** linguist-documentation=true
+
+# Mark specific folders as vendored (don't count in language stats)
+.venv/** linguist-vendored=true
+venv/** linguist-vendored=true
+__pycache__/** linguist-generated=true
+
+# Git LFS (Large File Storage) - if you add large files later
+# Uncomment and configure as needed
+# *.psd filter=lfs diff=lfs merge=lfs -text
+# *.ai filter=lfs diff=lfs merge=lfs -text
+# *.mp4 filter=lfs diff=lfs merge=lfs -text

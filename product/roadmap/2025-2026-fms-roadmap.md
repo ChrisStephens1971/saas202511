@@ -1,9 +1,9 @@
-# Product Roadmap - Farm Management System (FMS) V1
+# Product Roadmap - Farm Management System (FMS) Validation Sprint
 
-**Period:** 2025-2026 (52 weeks)
+**Period:** 16-Week Validation Sprint (2025-2026)
 **Owner:** Solo Founder
-**Last Updated:** 2025-10-31
-**Status:** Approved
+**Last Updated:** 2025-11-02
+**Status:** Approved - Revised for Validation-First Approach
 
 ---
 
@@ -11,46 +11,44 @@
 
 ### Product Vision
 
-Deliver a mixed-fleet, verification-grade Farm Management System that solves interoperability, offline reliability, multi-party workflows, compliance, inventory, costing, and field-to-finance integration. The system will enable growers, managers, agronomists, and retailers to work seamlessly across John Deere, CNH, AGCO, and custom applicator equipment with ≥95% cross-brand file round-trip accuracy, 99.9% offline job completion, and month-end close in ≤3 business days.
+Deliver a mixed-fleet, verification-grade Farm Management System that solves interoperability and offline reliability challenges. The system will enable growers, managers, agronomists, and retailers to work seamlessly across John Deere, CNH, AGCO, and custom applicator equipment with ≥95% cross-brand file round-trip accuracy and 99.9% offline job completion.
 
-This is a **complete build approach**: All 5 phases will be developed over 52 weeks before V1 launch. A production pilot with 2 customers will validate the system at 6 months (Week 26).
+This is a **validation-first approach**: Focus on Phases 0-1 (Foundation + Interop Core) over 16 weeks to validate core technical assumptions with 2 pilot customers. Week 12 serves as validation gate - if round-trip accuracy ≥90% and offline reliability is proven, proceed to full V1 build (Phases 2-5). This approach reduces risk and validates product-market fit 14 weeks earlier than the original 52-week plan.
 
-### Strategic Themes
+### Strategic Themes (Validation Sprint)
 
-1. **Mixed-Fleet Interoperability** - Eliminate data chaos across Deere, CNH, AGCO equipment via ISOXML and ADAPT conversion
-2. **Offline-First Architecture** - 99.9% job creation and completion offline with deterministic sync
-3. **Compliance & Audit** - ≥90% first-attempt audit pass rate with immutable audit packs
-4. **Field-to-Finance Integration** - Close books in ≤3 business days with complete traceability
-5. **Enterprise-Grade Reliability** - Production-ready SRE, security, and operational telemetry
+1. **Mixed-Fleet Interoperability** - Prove ISOXML/ADAPT conversion achieves ≥90% round-trip accuracy
+2. **Offline-First Architecture** - Validate 99.9% job creation and completion offline with deterministic sync
+3. **Customer Validation** - Deploy to 2 pilot customers by Week 12, gather feedback, validate assumptions
 
 ---
 
-## Roadmap Overview
+## Roadmap Overview (16-Week Validation Sprint)
 
 ### Phase 0: Beachhead & Foundation (Weeks 0-2)
 
-**Focus:** Choose pilot customer, baseline KPIs, spike critical integrations
+**Focus:** Engage pilot customers, baseline KPIs, spike critical integrations
 
 | Initiative | Description | Target Date | Priority |
 |------------|-------------|-------------|----------|
-| Beachhead selection | Select 2 pilot customers with mixed fleets | Week 1 | P0 |
+| Pilot customer engagement | Confirm 2 pilot customers with mixed fleets (already identified) | Week 1 | P0 |
 | Integration matrix | Compile OEM data sources, formats, APIs | Week 1 | P0 |
-| ISOXML conversion spike | Validate round-trip prescription conversion | Week 2 | P0 |
+| ISOXML conversion spike | Validate round-trip prescription conversion with real files | Week 2 | P0 |
 | ADAPT spike | Test ADAPT payload import/export | Week 2 | P0 |
-| Data collection kit setup | Deploy templates/CSV schemas to pilot sites | Week 2 | P0 |
+| Development environment | Set up FastAPI backend, Next.js frontend, PostgreSQL + PostGIS | Week 1 | P0 |
 
-### Phase 1: Interop Core & Foundation (Weeks 3-12)
+### Phase 1: Interop Core & Foundation (Weeks 3-10)
 
-**Focus:** File conversion, job engine, IAM, offline engine, OEM importers
+**Focus:** File conversion, job engine, IAM, offline engine (core validation features)
 
 | Feature/Initiative | Description | Target Date | Priority |
 |--------------------|-------------|-------------|----------|
-| ISOXML/ADAPT converters | Production-grade import/export with ≥95% round-trip | Week 8 | P0 |
-| Job engine | Create, assign, execute, complete jobs with multi-party workflow | Week 10 | P0 |
-| Offline-first engine | SQLite + CRDT merges, vector clocks, conflict resolution UI | Week 10 | P0 |
-| IAM & multi-tenant | Row-level security, org/user/role model, SCIM/SAML ready | Week 8 | P0 |
-| OEM importers | Deere Operations Center, CNH, AGCO bulk import | Week 12 | P0 |
-| Spatial data foundation | PostGIS boundaries, as-applied polygons, field/block model | Week 9 | P0 |
+| ISOXML/ADAPT converters | Production-grade import/export with ≥90% round-trip | Week 8 | P0 |
+| Job engine (MVP) | Create, assign, execute, complete jobs with basic workflow | Week 10 | P0 |
+| Offline-first engine (MVP) | SQLite + CRDT merges, vector clocks, basic conflict resolution | Week 10 | P0 |
+| IAM & multi-tenant | Row-level security, org/user/role model (basic auth) | Week 7 | P0 |
+| OEM importers (basic) | File-based import (USB/SD), defer API integration if needed | Week 9 | P1 |
+| Spatial data foundation | PostGIS boundaries, as-applied polygons, field/block model | Week 8 | P0 |
 
 **Tech Stack:**
 - Backend: Python + FastAPI, gRPC over HTTP/2
@@ -58,68 +56,96 @@ This is a **complete build approach**: All 5 phases will be developed over 52 we
 - Database: PostgreSQL + PostGIS
 - Edge: SQLite with write-ahead log, Protobuf event log
 
-### Phase 2: Compliance & Audit (Weeks 13-22)
+### Phase 1.5: Pilot Deployment & Testing (Weeks 11-16)
+
+**Focus:** Deploy to pilot customers, validate technical assumptions, gather feedback
+
+| Initiative | Description | Target Date | Priority |
+|--------------------|-------------|-------------|----------|
+| Pilot deployment | Deploy to 2 pilot customer environments | Week 11 | P0 |
+| **🎯 Week 12 Validation Gate** | **Assess round-trip accuracy, offline reliability, user feedback** | **Week 12** | **P0** |
+| Pilot testing & feedback | Test core workflows with real data, gather user feedback | Weeks 12-14 | P0 |
+| Bug fixes & refinements | Address pilot feedback, fix critical bugs | Weeks 13-16 | P0 |
+| Validation report | Document findings, recommendation for V1 phases | Week 16 | P0 |
+
+**Validation Success Criteria (Week 12):**
+- ✅ ISOXML/ADAPT round-trip accuracy ≥90% (target ≥95%)
+- ✅ Offline job creation and completion working reliably
+- ✅ 2 pilot customers deployed and using system
+- ✅ No critical blockers or fundamental technical challenges
+- ✅ Positive user feedback on core workflow
+
+**Decision at Week 12:**
+- **PROCEED to Phases 2-5** (Compliance, Inventory, Finance, Mission Planner) if validation succeeds
+- **PIVOT or REFINE** if core technical assumptions invalidated or major issues discovered
+
+---
+
+## Post-Validation Roadmap (Phases 2-5)
+
+**Status:** Deferred pending Week 12 validation gate success
+
+These phases will be executed if the Week 12 validation succeeds. Timeline will be reassessed based on validation learnings.
+
+### Phase 2: Compliance & Audit (Future: ~10 weeks)
 
 **Focus:** Label rules, REI/PHI, audit packs, traceability, proof-of-work
 
-| Feature/Initiative | Description | Target Date | Priority |
-|--------------------|-------------|-------------|----------|
-| Compliance engine | Label rules evaluator, REI/PHI timers, restricted material checks | Week 16 | P0 |
-| Audit pack generation | Immutable job facts, weather, labels, certs, signatures, photos | Week 18 | P0 |
-| Traceability graph | Field → job → product lot → as-applied → audit submission | Week 20 | P0 |
-| GAP/GlobalG.A.P. export | One-click audit submission for jurisdictions | Week 22 | P0 |
-| Proof-of-work | Work order → telemetry → photos → e-signatures | Week 21 | P0 |
-| **🎯 Pilot Milestone** | 2 customers in production, first audit submissions | Week 26 | P0 |
+**Key Features:**
+- Compliance engine (label rules evaluator, REI/PHI timers, restricted material checks)
+- Audit pack generation (immutable job facts, weather, labels, certs, signatures, photos)
+- Traceability graph (field → job → product lot → as-applied → audit submission)
+- GAP/GlobalG.A.P. export (one-click audit submission)
+- Proof-of-work (work order → telemetry → photos → e-signatures)
 
-**Pilot Success Criteria (Week 26):**
-- ≥85% first-attempt audit pass rate (target ≥90% by Week 52)
-- ≥95% cross-brand file round-trip accuracy
-- Zero data loss in offline scenarios
+**Success Metrics:**
+- ≥90% first-attempt audit pass rate
 
-### Phase 3: Inventory & Costing (Weeks 23-32)
+### Phase 3: Inventory & Costing (Future: ~10 weeks)
 
 **Focus:** Inventory ledger, cost allocation, reconciliation
 
-| Feature/Initiative | Description | Target Date | Priority |
-|--------------------|-------------|-------------|----------|
-| Inventory ledger | Receipts, transfers, blends, shrink, returns with barcode/QR | Week 26 | P0 |
-| Cost allocation | Inputs, labor, machine hours to field/block/crop with landlord splits | Week 28 | P0 |
-| Reconciliation | Issued vs as-applied variance reporting (target ≤2% monthly) | Week 30 | P0 |
-| Product catalog | Integrate label databases, lot/batch tracking | Week 27 | P0 |
-| Tank mix tracking | Multi-product blends with compliance validation | Week 29 | P0 |
+**Key Features:**
+- Inventory ledger (receipts, transfers, blends, shrink, returns with barcode/QR)
+- Cost allocation (inputs, labor, machine hours to field/block/crop with landlord splits)
+- Reconciliation (issued vs as-applied variance reporting)
+- Product catalog (integrate label databases, lot/batch tracking)
+- Tank mix tracking (multi-product blends with compliance validation)
 
 **Success Metrics:**
-- Inventory variance ≤5% monthly (target ≤2% by Week 52)
+- Inventory variance ≤2% monthly
 
-### Phase 4: Field-to-Finance (Weeks 33-44)
+### Phase 4: Field-to-Finance (Future: ~12 weeks)
 
 **Focus:** GL mapping, accounting integration, settlements, lender view
 
-| Feature/Initiative | Description | Target Date | Priority |
-|--------------------|-------------|-------------|----------|
-| GL mapping UI | Map field/block/crop costs to chart of accounts | Week 36 | P0 |
-| QuickBooks/Xero export | Accruals, invoices, payments export | Week 38 | P0 |
-| NetSuite adapter | Enterprise accounting integration | Week 42 | P0 |
-| Landlord settlements | Split calculations, ACH file export | Week 40 | P0 |
-| Lender view | Budgets vs actuals, collateral inventory, covenant monitor | Week 44 | P0 |
-| Month-end close workflow | Automated close process with field-to-finance linkage | Week 43 | P0 |
+**Key Features:**
+- GL mapping UI (map field/block/crop costs to chart of accounts)
+- QuickBooks/Xero export (accruals, invoices, payments export)
+- NetSuite adapter (enterprise accounting integration)
+- Landlord settlements (split calculations, ACH file export)
+- Lender view (budgets vs actuals, collateral inventory, covenant monitor)
+- Month-end close workflow (automated close process with field-to-finance linkage)
 
 **Success Metrics:**
-- Month-end close in ≤5 business days (target ≤3 by Week 52)
+- Month-end close in ≤3 business days
 
-### Phase 5: Mission Planner & SRE Hardening (Weeks 45-52)
+### Phase 5: Mission Planner & SRE Hardening (Future: ~8 weeks)
 
 **Focus:** Autonomous operations, telemetry, production readiness
 
-| Feature/Initiative | Description | Target Date | Priority |
-|--------------------|-------------|-------------|----------|
-| Mission planner | Schedule manned + autonomous passes, geofences, refill stops | Week 48 | P0 |
-| Telemetry broker | Real-time machine telemetry ingestion and display | Week 49 | P0 |
-| SRE hardening | Monitoring, alerting, incident response, disaster recovery | Week 51 | P0 |
-| Mobile apps (iOS/Android) | Offline-first native apps (React Native or Flutter TBD) | Week 50 | P1 |
-| Public API documentation | REST/GraphQL API docs, SDKs, stable versioning | Week 51 | P0 |
-| Historical import tool | 3 seasons of data in <4 hours | Week 50 | P1 |
-| **🚀 V1 Launch** | Production release with 2 pilot customers validated | Week 52 | P0 |
+**Key Features:**
+- Mission planner (schedule manned + autonomous passes, geofences, refill stops)
+- Telemetry broker (real-time machine telemetry ingestion and display)
+- SRE hardening (monitoring, alerting, incident response, disaster recovery)
+- Mobile apps (iOS/Android - offline-first native apps, React Native or Flutter TBD)
+- Public API documentation (REST/GraphQL API docs, SDKs, stable versioning)
+- Historical import tool (3 seasons of data in <4 hours)
+
+**Success Metrics:**
+- Production SLAs met (99.9% uptime, <2s response time)
+
+**Total Estimated Timeline (Phases 2-5):** ~40 additional weeks after validation
 
 ---
 
@@ -233,78 +259,103 @@ This is a **complete build approach**: All 5 phases will be developed over 52 we
 
 ---
 
-## Success Metrics
+## Success Metrics (16-Week Validation Sprint)
 
-### Non-Negotiable Outcomes (V1 Acceptance)
-
-| Metric | Target | Status |
-|--------|--------|--------|
-| Cross-brand file round-trip accuracy | ≥95% | 🔵 Not Started |
-| Offline job completion | 99.9% | 🔵 Not Started |
-| First-attempt audit pass rate | ≥90% | 🔵 Not Started |
-| Monthly inventory variance | ≤2% | 🔵 Not Started |
-| Month-end close time | ≤3 business days | 🔵 Not Started |
-| Historical import (3 seasons) | <4 hours | 🔵 Not Started |
-
-### Pilot Milestone Metrics (Week 26)
+### Validation Gate Metrics (Week 12)
 
 | Metric | Target | Status |
 |--------|--------|--------|
-| First-attempt audit pass rate | ≥85% | 🔵 Not Started |
-| Inventory variance | ≤5% | 🔵 Not Started |
-| Month-end close time | ≤5 business days | 🔵 Not Started |
-| Pilot customers in production | 2 | 🔵 Not Started |
+| Cross-brand file round-trip accuracy | ≥90% | 🔵 Not Started |
+| Offline job creation | Working reliably | 🔵 Not Started |
+| Offline job completion | Working reliably | 🔵 Not Started |
+| Pilot customers deployed | 2 | 🔵 Not Started |
+| Critical blockers | 0 | 🔵 Not Started |
 
-### Performance Targets
+### Technical Validation Targets (Week 16)
 
 | Metric | Target | Status |
 |--------|--------|--------|
-| P95 page load (4G) | <2 seconds | 🔵 Not Started |
-| P95 mobile sync (1,000 events) | <60 seconds | 🔵 Not Started |
-| P95 sync convergence (offline → online) | <5 minutes | 🔵 Not Started |
-| Audit pack generation | <2 minutes | 🔵 Not Started |
+| ISOXML round-trip accuracy (prescriptions) | ≥90% (target ≥95%) | 🔵 Not Started |
+| ADAPT payload import/export | Working | 🔵 Not Started |
+| Offline sync convergence | Deterministic, no data loss | 🔵 Not Started |
+| Multi-tenant isolation | Verified | 🔵 Not Started |
+| Spatial data accuracy | PostGIS queries working | 🔵 Not Started |
+
+### Performance Targets (Validation)
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| P95 page load (4G) | <3 seconds | 🔵 Not Started |
+| P95 sync convergence (offline → online) | <10 minutes | 🔵 Not Started |
+| File conversion time (100 prescriptions) | <5 minutes | 🔵 Not Started |
+
+### User Feedback Goals (Week 16)
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| Pilot user satisfaction | Positive feedback on core workflow | 🔵 Not Started |
+| Critical usability issues | <3 per pilot customer | 🔵 Not Started |
+| Willingness to continue (pilot customers) | 2/2 yes | 🔵 Not Started |
 
 ---
 
-## Resource Allocation
+## Future V1 Metrics (Post-Validation)
+
+**These metrics apply to full V1 (Phases 2-5), deferred pending validation:**
+
+| Metric | Target | Phase |
+|--------|--------|-------|
+| First-attempt audit pass rate | ≥90% | Phase 2 |
+| Monthly inventory variance | ≤2% | Phase 3 |
+| Month-end close time | ≤3 business days | Phase 4 |
+| Historical import (3 seasons) | <4 hours | Phase 5 |
+| Production SLA (uptime) | 99.9% | Phase 5 |
+
+---
+
+## Resource Allocation (Validation Sprint)
 
 ### Team Capacity
 - **Solo Founder:** Full-stack development, product, architecture
-- **Consider hiring:** Backend engineer (Phase 2+), Mobile engineer (Phase 5)
+- **Hiring plan:** Revisit after Week 12 validation. If proceeding to Phases 2-5, consider backend engineer.
 
-### Effort Distribution (Estimated)
-- 70% - Core feature development (Phases 1-5)
-- 15% - Integration and data conversion (OEM APIs, ISOXML/ADAPT)
-- 10% - Testing, QA, pilot support
-- 5% - Documentation, operational readiness
+### Effort Distribution (16-Week Validation)
+- 60% - Core feature development (Phases 0-1)
+- 20% - Integration and data conversion (ISOXML/ADAPT, spikes)
+- 15% - Pilot deployment, testing, and support
+- 5% - Documentation and validation reporting
 
 ---
 
-## Risks and Dependencies
+## Risks and Dependencies (Validation Sprint)
 
 | Risk/Dependency | Impact | Mitigation | Phase |
 |-----------------|--------|------------|-------|
-| ISOXML/ADAPT spec complexity | High | Spike in Phase 0, validate round-trip with real files | Phase 0-1 |
-| OEM API access (Deere, CNH, AGCO) | High | Early engagement with OEM developer programs, fallback to file import | Phase 1 |
-| Offline sync conflicts | High | CRDT research, conflict resolution UI, extensive testing | Phase 1 |
-| Label database integration | Medium | Identify commercial providers early (CDMS, Greenbook) | Phase 2 |
-| Pilot customer availability | Medium | Select 2 customers in Phase 0, maintain close communication | Phase 2 |
-| Accounting system APIs | Medium | Start with QuickBooks/Xero (well-documented), defer NetSuite if needed | Phase 4 |
-| Solo founder capacity | High | Prioritize ruthlessly, consider hiring after pilot validation | All phases |
-| Mobile app complexity | Medium | Evaluate React Native vs Flutter in Phase 1, defer to Phase 5 | Phase 5 |
+| ISOXML/ADAPT spec complexity | High | Spike in Phase 0 (Week 2), validate round-trip with real pilot files | Phase 0 |
+| Round-trip accuracy <90% | Critical | Allocate extra time in Weeks 7-8, consider hiring specialist if needed | Phase 1 |
+| OEM API access restrictions | Medium | Focus on file-based import (USB/SD), defer API integration to post-validation | Phase 1 |
+| Offline sync conflicts | High | CRDT research in Week 1, build basic conflict resolution, extensive testing | Phase 1 |
+| Pilot customer engagement | High | **Already identified** - Maintain weekly check-ins, clear expectations | All phases |
+| Solo founder capacity (16 weeks) | Medium | Prioritize ruthlessly, defer nice-to-haves, 60-hour weeks acceptable for sprint | All phases |
+| PostgreSQL/PostGIS setup | Low | Use Docker Compose, Azure PostgreSQL for production | Phase 0 |
 
 ---
 
-## What We're NOT Doing (V1 Scope)
+## What We're NOT Doing (Validation Sprint)
 
-Explicitly out of scope for V1 to maintain focus:
+Explicitly out of scope for 16-week validation to maintain focus:
 
-- ❌ **Proprietary imagery processing** - Partner with existing providers instead
-- ❌ **In-house agronomy consulting** - Focus on tooling, not services
-- ❌ **Fancy dashboards beyond operational/finance KPIs** - Core workflows first
-- ❌ **IoT sensor integrations** - Focus on machine data first
-- ❌ **Multi-language UI** - English only for V1 (strings prepared for i18n)
-- ❌ **Advanced analytics/ML** - Operational data collection first, analytics later
+- ❌ **Compliance features** - Deferred to Phase 2 (post-validation)
+- ❌ **Inventory and costing** - Deferred to Phase 3 (post-validation)
+- ❌ **Field-to-finance integration** - Deferred to Phase 4 (post-validation)
+- ❌ **Mission planner and mobile apps** - Deferred to Phase 5 (post-validation)
+- ❌ **OEM API integrations** - File-based import only, API deferred if complex
+- ❌ **Advanced offline conflict resolution** - Basic CRDT merges only
+- ❌ **Fancy UI/UX** - Functional workflows first, polish later
+- ❌ **Multi-party workflow complexity** - Basic job assignment only
+- ❌ **Historical data import** - Focus on current season data only
+
+**Focus: Prove ISOXML/ADAPT conversion and offline reliability work. Everything else is secondary.**
 
 ---
 
@@ -312,34 +363,52 @@ Explicitly out of scope for V1 to maintain focus:
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2025-10-31 | Complete build approach (52 weeks before V1) | Enterprise FMS requires full feature set for credibility. Pilot at 6 months validates, but V1 ships at 12 months with all 5 phases complete. |
-| 2025-10-31 | Tech stack: Python + FastAPI, Next.js, PostgreSQL + PostGIS | FastAPI for modern async Python, Next.js for SSR and performance, PostgreSQL for spatial + enterprise reliability. |
-| 2025-10-31 | Pilot users: Grower, Manager, Agronomist, Retailer | Focus on core field operations workflow. Auditor, Contractor, Landlord roles deferred to post-pilot. |
-| 2025-10-31 | Mobile apps deferred to Phase 5 | Web-first for pilot validation. Mobile (React Native/Flutter) for production rollout. |
+| 2025-10-31 | Complete build approach (52 weeks before V1) | **SUPERSEDED** - Original plan was too risky for solo founder |
+| 2025-11-02 | **Validation-first approach (16 weeks)** | Compress to Phases 0-1 only, validate core assumptions by Week 12, reduce risk by 14 weeks. Proceed to Phases 2-5 only if validation succeeds. |
+| 2025-10-31 | Tech stack: Python + FastAPI, Next.js, PostgreSQL + PostGIS | FastAPI for modern async Python, Next.js for SSR and performance, PostgreSQL for spatial + enterprise reliability. **RETAINED** |
+| 2025-10-31 | Pilot users: Grower, Manager, Agronomist, Retailer | Focus on core field operations workflow. **RETAINED** |
+| 2025-11-02 | Mobile apps deferred to Phase 5 (post-validation) | Web-first for validation sprint. Mobile deferred until after Week 12 validation gate. |
+| 2025-11-02 | OEM API integrations made optional | File-based import (USB/SD) sufficient for validation. API integration deferred to post-validation if complex. |
 
 ---
 
-## Timeline Summary
+## Timeline Summary (Validation Sprint)
 
 | Phase | Weeks | Milestone | Success Criteria |
 |-------|-------|-----------|------------------|
-| **Phase 0** | 0-2 | Beachhead & spikes | Pilot selected, ISOXML/ADAPT validated |
-| **Phase 1** | 3-12 | Interop core | Round-trip ≥95%, offline working, OEM imports live |
-| **Phase 2** | 13-22 | Compliance | Audit packs, ≥85% pass rate |
-| **🎯 Pilot** | **26** | **Production pilot** | **2 customers live, first audits passing** |
-| **Phase 3** | 23-32 | Inventory | Variance ≤5%, cost allocation working |
-| **Phase 4** | 33-44 | Finance | Month-end ≤5 days, GL export, lender view |
-| **Phase 5** | 45-52 | Mission + SRE | Mission planner, telemetry, mobile apps, SRE hardening |
-| **🚀 V1** | **52** | **Production launch** | **All non-negotiables met, 2 pilots validated** |
+| **Phase 0** | 0-2 | Foundation & spikes | Dev environment ready, ISOXML/ADAPT spike complete |
+| **Phase 1** | 3-10 | Interop core | Round-trip ≥90%, offline working, converters built |
+| **Phase 1.5** | 11-12 | Pilot deployment | 2 customers deployed, initial testing |
+| **🎯 Validation Gate** | **12** | **Go/No-Go Decision** | **Round-trip ≥90%, offline reliable, positive feedback** |
+| **Phase 1.5 (cont)** | 13-16 | Testing & refinement | Bug fixes, user feedback, validation report |
+| **📊 Sprint End** | **16** | **Validation complete** | **Decision: Proceed to Phases 2-5 or Pivot** |
+
+**Post-Validation (if successful):**
+- Phase 2: Compliance & Audit (~10 weeks)
+- Phase 3: Inventory & Costing (~10 weeks)
+- Phase 4: Field-to-Finance (~12 weeks)
+- Phase 5: Mission Planner & SRE (~8 weeks)
+- **Total to V1:** ~16 weeks validation + ~40 weeks post-validation = ~56 weeks
 
 ---
 
-## Next Steps
+## Next Steps (Start Now)
 
-1. **Sprint 1 (Weeks 0-2):** Beachhead selection, integration matrix, ISOXML/ADAPT spikes
-2. **Create PRDs:** Start with ISOXML/ADAPT converter, offline job engine, IAM in Sprint 1
-3. **Set up development environment:** FastAPI backend, Next.js frontend, PostgreSQL + PostGIS locally
-4. **Pilot engagement:** Weekly check-ins with 2 pilot customers starting Week 1
+1. **Week 0 (This Week):**
+   - Set up FastAPI backend project structure
+   - Set up Next.js frontend project structure
+   - Initialize PostgreSQL + PostGIS with Docker Compose
+   - Confirm pilot customer engagement schedule
+
+2. **Week 1:**
+   - Create integration matrix (OEM data sources, formats)
+   - Begin ISOXML conversion spike with real files
+   - Create first PRD (ISOXML/ADAPT Converter)
+
+3. **Week 2:**
+   - Complete ISOXML spike (validate round-trip feasibility)
+   - Complete ADAPT spike
+   - Begin Phase 1 development (converters, job engine)
 
 ---
 
@@ -348,3 +417,4 @@ Explicitly out of scope for V1 to maintain focus:
 | Date | Changes | Updated By |
 |------|---------|------------|
 | 2025-10-31 | Initial 52-week roadmap created | Solo Founder |
+| 2025-11-02 | **Major revision:** Compressed to 16-week validation sprint. Focus on Phases 0-1 only. Moved Phases 2-5 to post-validation roadmap. Updated metrics, timeline, and decision log. | Solo Founder + Claude Code |
