@@ -10,7 +10,7 @@
     "phase": "phase-0"
   },
   "metadata": {
-    "tradeName": null,
+    "tradeName": "Farm Management",
     "teamType": "solo",
     "buildApproach": "complete-build",
     "multiTenant": true,
