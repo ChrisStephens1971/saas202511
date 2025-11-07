@@ -66,3 +66,44 @@ Common script types:
 - Build automation
 - Testing utilities
 - Deployment helpers
+---
+
+## Coding Standards
+
+**All scripts in this directory must follow the project's coding standards.**
+
+**Standards Document:** `C:\devop\coding_standards.md`
+
+### Quick Reference
+
+**Shell Scripts (.sh, .bat, .ps1):**
+- Clear comments explaining purpose
+- Error handling for all operations
+- Descriptive variable names
+- Exit codes for success/failure
+
+**Python Scripts (.py):**
+- snake_case for functions/variables
+- PascalCase for classes
+- Docstrings for all functions
+- Type hints where applicable
+- Max line length: 80 characters
+
+**JavaScript Scripts (.js, .cjs):**
+- camelCase for functions/variables
+- PascalCase for classes
+- JSDoc comments for modules
+- Use `const`/`let` (never `var`)
+- Single quotes for strings
+
+**Universal Rules:**
+- Comments explain *why*, not *what*
+- Specific exception types (no bare catches)
+- Meaningful error messages
+- Functions should be small (<50 lines)
+
+**Before committing scripts:**
+1. Run linters if available
+2. Test thoroughly
+3. Document usage in this README
+4. Follow naming conventions
