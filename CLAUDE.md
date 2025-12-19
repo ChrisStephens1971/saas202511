@@ -23,6 +23,50 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ---
 
+## ⚙️ Available Tools: Built-in vs. Installable
+
+**IMPORTANT:** Understand what's available without installation!
+
+### ✅ Built-in Tools (Always Available - No Installation)
+
+These are **ALWAYS** available in every Claude Code session:
+
+**Core Operations:**
+- Read, Write, Edit - File operations
+- Glob, Grep - Search and find files
+- Bash - Execute commands
+- WebSearch, WebFetch - Research capabilities
+
+**Specialized Task Agents (Built-in!):**
+- **Task tool with subagent_type** - Launches specialized agents
+  - `Explore` - Fast codebase exploration
+  - `Plan` - Fast planning and analysis
+  - `general-purpose` - Multi-step complex tasks
+
+**⚠️ CRITICAL:** Task tool's Explore/Plan agents are **BUILT-IN**. They do NOT require installation!
+
+### 📦 Optional Extensions (Require Installation)
+
+Install these **ONLY when needed**:
+
+**Claude Skills** - Document processing
+- xlsx, docx, pdf, skill-creator
+- Install: `/plugin add xlsx`
+
+**WSHobson Agents** - Framework specialists
+- python-development, react-typescript, full-stack-orchestration
+- Install: `/plugin install full-stack-orchestration`
+
+**Claude Code Templates** - Role-based workflows
+- frontend-developer, backend-architect, test-engineer
+- Install: `npx claude-code-templates@latest --agent [name]`
+
+**See:** `BUILT-IN-VS-INSTALLABLE.md` for complete breakdown
+
+**When to install extensions?** Only during development phase, NOT for planning!
+
+---
+
 ## 🏢 Multi-Tenant Architecture
 
 **Multi-Tenant Enabled:** true
@@ -509,7 +553,87 @@ npx claude-code-templates@latest --command testing/generate-tests
 
 ---
 
-## 🎯 When Helping Users
+
+---
+
+## 💻 Coding Standards
+
+**When writing or reviewing code, always follow our coding standards.**
+
+**Reference:** `C:\devop\coding_standards.md`
+
+### Quick Summary
+
+Our standards are based on Google's Style Guides and prioritize:
+- **Consistency** - Code should look like it was written by one person
+- **Readability** - Code is read more than it's written
+- **Maintainability** - Easy to understand months/years later
+
+### Language-Specific Guidelines
+
+| Language | Naming Convention | Line Length | Key Points |
+|----------|------------------|-------------|------------|
+| **Python** | `snake_case` (functions/vars), `PascalCase` (classes) | 80 chars | Use docstrings, type hints, specific exceptions |
+| **JavaScript** | `camelCase` (functions/vars), `PascalCase` (classes) | 80-100 chars | Use `const`/`let`, JSDoc, arrow functions |
+| **Java** | `camelCase` (methods), `PascalCase` (classes) | 100 chars | Use `@Override`, prefer interfaces |
+| **HTML/CSS** | lowercase tags, `kebab-case` classes | - | Meaningful names, avoid IDs |
+
+### Universal Rules
+
+1. **Comments** - Explain WHY, not WHAT
+2. **Functions** - Single responsibility, <50 lines, ≤3 parameters
+3. **Error Handling** - Specific exceptions, meaningful messages, fail fast
+4. **Testing** - Write tests for all features, follow AAA pattern
+5. **Version Control** - Clear commit messages: `[type] description`
+
+### When Implementing Code
+
+**Always:**
+- Read `C:\devop\coding_standards.md` before starting major development
+- Use appropriate linters (pylint, eslint, checkstyle)
+- Follow naming conventions for the language
+- Write meaningful comments explaining complex logic
+- Include tests with new code
+
+**In Code Reviews:**
+- Check naming convention adherence
+- Verify proper documentation/comments
+- Ensure code clarity and readability
+- Confirm test coverage
+- Be constructive, explain WHY when suggesting changes
+
+**Full guide:** `C:\devop\coding_standards.md` (comprehensive examples and best practices)
+
+
+---
+
+## 🔌 MCP Integration
+
+**When to Use MCP Servers:**
+
+This project has access to MCP (Model Context Protocol) servers that provide specialized capabilities. See `MCP-USAGE-GUIDE.md` for comprehensive documentation.
+
+**Quick Reference:**
+- **Socket MCP** → Dependency security scanning
+- **Clarity MCP** → Web analytics and user behavior
+- **Excel/Graph MCP** → Business data from spreadsheets
+- **Context7 MCP** → Deep code understanding
+- **Apify MCP** → Competitive intelligence
+- **Figma MCP** → Design system tokens
+- **Tableau MCP** → BI dashboards
+- **Coupler.io MCP** → Unified data hub
+- **Windows MCP** → Local file system
+
+**When NOT to use MCPs:**
+- Simple questions answerable in 30 seconds
+- Well-known packages (express, react, etc.)
+- When data isn't needed for the task
+
+**Full guide:** `MCP-USAGE-GUIDE.md` (comprehensive patterns, workflows, and examples)
+
+---
+
+## # 🎯 When Helping Users
 
 **Always:**
 - Use Task tool (subagent_type=Explore) before assuming file locations
@@ -566,9 +690,56 @@ cd C:\devop\scripts
 
 **Documentation:** `C:\devop\TASK-NOTIFICATION-SYSTEM.md`
 
+
 ---
 
-## ⚠️ CRITICAL: Safe Process Management
+## 📝 Documentation Requirements
+
+**IMPORTANT: Document all significant work.**
+
+### When to Document
+
+**Required documentation:**
+- ✅ **After every session** with multiple tasks (use Session Progress template)
+- ✅ **After completing a sprint** (use Sprint Summary template)
+- ✅ **After significant tasks** (>1 hour work, use Task Completion template)
+- ✅ **After major refactoring** or architectural changes
+- ✅ **After resolving complex bugs**
+- ✅ **After integrating new tools or libraries**
+
+**Documentation location:**
+- Session/Sprint docs: `docs/progress/`
+- Task docs: `docs/tasks/`
+- Architecture docs: `docs/architecture/`
+
+### How to Document
+
+**Option 1: Use helper script (recommended)**
+```bash
+cd C:\devop\.template-system\scripts
+python create_documentation.py --type session
+python create_documentation.py --type sprint
+python create_documentation.py --type task
+```
+
+**Option 2: Manual (use templates)**
+- Templates: `.template-system/templates/documentation/`
+- Copy template to project docs folder
+- Fill out all sections
+- Save with date: `SESSION-YYYY-MM-DD.md`
+
+**What to include:**
+- Clear objectives/goals
+- All files changed (created/updated/deleted)
+- Results and validation
+- Problems encountered and solutions
+- Next steps and blockers
+
+**Guidelines:** See `DOCUMENTATION-GUIDELINES.md` in template system for comprehensive best practices
+
+---
+
+## # ⚠️ CRITICAL: Safe Process Management
 
 **NEVER use commands that kill ALL processes of a type.**
 

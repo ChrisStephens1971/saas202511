@@ -1,3 +1,18 @@
+/**
+ * @fileoverview Pitch Deck Generator
+ *
+ * Creates a professional investor pitch deck in .docx format for SaaS fundraising.
+ * Generates a complete pitch deck with problem, solution, market, traction, team,
+ * financials, and ask sections tailored for HOA fund accounting SaaS.
+ *
+ * @module create-pitch-deck
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, PageBreak, AlignmentType, HeadingLevel, LevelFormat } = require('docx');
 

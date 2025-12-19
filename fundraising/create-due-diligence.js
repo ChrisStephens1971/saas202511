@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Due Diligence Checklist Generator
+ *
+ * Creates a comprehensive due diligence checklist document in .docx format.
+ * Covers legal, financial, technical, and business aspects for investor review.
+ *
+ * @module create-due-diligence
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel, LevelFormat } = require('docx');
 

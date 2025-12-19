@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Investor FAQ Generator
+ *
+ * Creates a comprehensive investor FAQ document in .docx format.
+ * Addresses common investor questions about the business, market, team, and financials.
+ *
+ * @module create-investor-faq
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel } = require('docx');
 

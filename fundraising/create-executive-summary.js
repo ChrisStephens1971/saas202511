@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Executive Summary Generator
+ *
+ * Creates a concise executive summary document in .docx format for investor review.
+ * Provides a high-level overview of the business, market opportunity, and financial projections.
+ *
+ * @module create-executive-summary
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, AlignmentType,
         HeadingLevel, BorderStyle, WidthType, ShadingType, VerticalAlign, LevelFormat,

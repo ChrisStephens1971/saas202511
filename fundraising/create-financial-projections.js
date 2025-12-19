@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Financial Projections Generator
+ *
+ * Creates detailed 5-year financial projections document in .docx format.
+ * Includes revenue model, unit economics, P&L statements, and key metrics for SaaS business.
+ *
+ * @module create-financial-projections
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, AlignmentType,
         HeadingLevel, WidthType, ShadingType } = require('docx');

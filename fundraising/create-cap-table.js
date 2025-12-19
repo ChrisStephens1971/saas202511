@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Capitalization Table Generator
+ *
+ * Creates a professional cap table document in .docx format showing equity ownership,
+ * dilution scenarios, and funding rounds. Essential for investor due diligence.
+ *
+ * @module create-cap-table
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, AlignmentType,
         HeadingLevel, WidthType, ShadingType, LevelFormat } = require('docx');

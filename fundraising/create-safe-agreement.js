@@ -1,3 +1,17 @@
+/**
+ * @fileoverview SAFE Agreement Generator
+ *
+ * Creates a Simple Agreement for Future Equity (SAFE) document in .docx format.
+ * Based on Y Combinator's post-money SAFE template with customizable terms.
+ *
+ * @module create-safe-agreement
+ * @requires docx
+ * @requires fs
+ *
+ * @author Fundraising Templates
+ * @version 1.0
+ */
+
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, AlignmentType,
         HeadingLevel, BorderStyle, WidthType, LevelFormat } = require('docx');

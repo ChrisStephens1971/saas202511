@@ -1,0 +1,45 @@
+# Repository Guidelines
+
+## Project Structure & Module Organization
+- Primary docs live in `product/`, `sprints/`, `technical/`, `business/`, `workflows/`, `meetings/`, and `docs/`.
+- DevOps and infra are under `technical/infrastructure/` (Azure Bicep, CI/CD, env strategy, secrets, migrations).
+- Utility scripts are in `scripts/` (see `scripts/README.md`).
+- GitHub workflows and templates are in `.github/`. Example Node assets exist in `fundraising/`.
+
+## Build, Test, and Development Commands
+- Docs to DOCX (Pandoc):
+  - Install: `powershell -ExecutionPolicy Bypass -File scripts\install-pandoc.ps1`
+  - Convert (from a docs folder): `..\scripts\convert-to-docx.bat`
+- Docker build (sanity check):
+  - Python: `docker build -f Dockerfile.python -t saas202511:test .`
+  - Node: `docker build -f Dockerfile.node -t saas202511:test .`
+- Tests (auto-detected in CI):
+  - Python: `pytest --cov`
+  - Node: `npm ci && npm test`
+
+## Coding Style & Naming Conventions
+- Editor config: see `.editorconfig` (UTF-8, LF, final newline).
+  - JSON/YAML/JS/TS: 2 spaces; Python: 4 spaces.
+- Python: snake_case for functions/vars; PascalCase for classes.
+- JS/TS: camelCase for functions/vars; PascalCase for classes; prefer `const`/`let`.
+- Docs: kebab-case filenames. ADRs in `technical/adr/` as `YYYY-MM-DD-title.md` or sequential `NNN-title.md`.
+
+## Testing Guidelines
+- Python: use `pytest`; name tests `tests/test_*.py`. Aim for meaningful coverage; prefer `pytest-cov` locally/CI.
+- Node: use your project’s test runner (e.g., Jest/Vitest); name tests `*.spec.(js|ts)`.
+- Services: if needed, mirror CI service URLs (Postgres/Redis) via env vars.
+
+## Commit & Pull Request Guidelines
+- Commits: imperative mood, concise scope. Conventional Commits are welcome (e.g., `feat:`, `fix:`).
+- PRs: use `.github/PULL_REQUEST_TEMPLATE.md`. Include description, linked issues (`Closes #123`), testing notes, and screenshots for doc/UI updates.
+- Keep changes small and template-aligned; update relevant docs when scripts or processes change.
+
+## Security & Configuration Tips
+- Do not commit secrets. Start from `.env.example` and follow `technical/infrastructure/SECRETS-MANAGEMENT.md`.
+- For Azure deployment and CI/CD, see `technical/infrastructure/` guides and `.github/workflows/`.
+
+## Agent-Specific Instructions
+- Keep edits scoped; avoid unrelated refactors or reformatting.
+- Place new automation in `scripts/` and document usage in `scripts/README.md`.
+- For architecture/process changes, add ADRs and cross-link to PRDs and sprint items.
+
